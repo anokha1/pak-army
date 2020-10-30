@@ -1,0 +1,119 @@
+ <style>
+   .col-md-12{
+       max-width: 95%;
+   }
+ </style>
+  <%#= form_for @paper, url: {controller: "papers", action: "create"} do |f| %>
+    <%= nested_form_for @paper,url: {controller: "papers", action: "create"}, method: :post, html: {class: "form-inline",autocomplete:"off",id:"paper_form"} do |f| %>
+    <!--    , html:{id: :agentform, onsubmit:"disableButton('agentform','submit_edit_button1')"}-->
+
+   <div class="abcd">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="id">Paper Title</label>
+          <input type="text" name='paper[subject]'>
+
+        </div>
+        <div class="form-group col-md-4">
+          <label for="id">Question</label>
+          <input type="text" name='questions[0][name]'>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="id">Option A</label>
+          <input type="text" name='multiple_choices[0][option_a]'>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-md-12" s>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="id">Option B</label>
+          <input type="text" name='multiple_choices[0][option_b]'>
+
+        </div>
+        <div class="form-group col-md-4">
+          <label for="id">Option C</label>
+          <input type="text" name='multiple_choices[0][option_c]'>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="id">Option D</label>
+          <input type="text" name='multiple_choices[0][option_d]'>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-md-12" s>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="id">Option E</label>
+          <input type="text" name='multiple_choices[0][option_e]'>
+
+        </div>
+        <div class="form-group col-md-4">
+          <label for="id">Correct Option</label>
+          <input type="text" name='multiple_choices[0][correct_option]'>
+        </div>
+      </div>
+
+
+    </div>
+
+<!--<div class="col-md-12">-->
+
+
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <span id="more_question">Add More Question +</span><br>
+<!--  </div>-->
+</div>
+<!-- </div>-->
+   <br>
+   <br>
+<!--   <div class="row">-->
+     <div class="col-md-12">
+     <%= submit_tag "Create" , class:'btn btn-primary' %>
+     </div>
+      </div>
+<% end %>
+
+
+
+  <script>
+
+
+      var counter=0
+      $('#more_question').on('click',function () {
+          debugger
+//           document.getElementById('my_file'+counter).click();
+          counter=counter+1
+          if(counter!=0){
+              // $('.abcd').append(' <input type="text" name="paper[subject]['+counter+']"><br>'+
+              //     ' <input type="text" name="questions[name]['+counter+']"><br>'+
+              // ' <input type="text" name="multiple_choices[option_a]['+counter+']"><br>' +
+              // '    <input type="text" name="multiple_choices[option_b]['+counter+']"><br> ' +
+              // '   <input type="text" name="multiple_choices[option_c]['+counter+']"><br>' +
+              // '   <input type="text" name="multiple_choices[option_d]['+counter+']"><br> ' +
+              // '   <input type="text" name="multiple_choices[option_e]['+counter+']"><br> '+
+              // '   <input type="text" name="multiple_choices[correct_option]['+counter+']"><br>')
+
+
+
+
+              $('.abcd').append('<div class="col-md-12"><div class="row"> '+
+                  ' <div class="form-group col-md-4"> <label for="id">Question '+counter+'</label> <input type="text" name="questions['+counter+'][name]"> </div> <div class="form-group col-md-4"> <label for="id">Option A</label> <input type="text" name="multiple_choices['+counter+'][option_a]"> </div> <div class="form-group col-md-4"><label for="id">Option B</label> <input type="text" name="multiple_choices['+counter+'][option_b]"></div> </div>   </div> ' +
+                  '<div class="col-md-12"><div class="row">  '+
+                  ' <div class="form-group col-md-4"> <label for="id">Option C</label> <input type="text" name="multiple_choices['+counter+'][option_c]"> </div> <div class="form-group col-md-4"> <label for="id">Option D</label> <input type="text" name="multiple_choices['+counter+'][option_d]"> </div>  <div class="form-group col-md-4"><label for="id">Option E</label> <input type="text" name="multiple_choices['+counter+'][option_e]"></div> </div>   </div> '+
+                  '<div class="col-md-12"><div class="row"> '+
+                  ' <div class="form-group col-md-4"> <label for="id">Correct Option</label> <input type="text" name="multiple_choices['+counter+'][correct_option]"> </div>  </div>   </div> ');
+          }
+
+      });
+  </script>

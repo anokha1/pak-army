@@ -1,0 +1,80 @@
+<%= form_tag submit_paper_papers_path, method: :post, id: "paper_form", remote: true do %>
+  <div class="row">
+    <span class="countdown"></span>
+    <%= csrf_meta_tags %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+    <input type="hidden" name="paper_id" value="<%= @paper.try(:id) %>">
+    <% @paper.questions.each_with_index do |q,id| %>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-xs-12">
+      <div>
+        <label class="label--account">Question # <%= id+1 %></label><br>
+        <label class="label--account"><%= q.name %> ?</label><br>
+        <div class="radio">
+          <label><input type="radio" name="question_<%=q.id %>[answer]" value="<%=q.multiple_choice.option_a %>" >  <%= q.multiple_choice.option_a %></label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="question_<%=q.id %>[answer]"  value="<%=q.multiple_choice.option_b %>">  <%= q.multiple_choice.option_b %></label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio" name="question_<%=q.id%>[answer]"  value="<%=q.multiple_choice.option_c %>">  <%= q.multiple_choice.option_c %></label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio" name="question_<%=q.id %>[answer]"  value="<%=q.multiple_choice.option_d %>">  <%= q.multiple_choice.option_d %></label>
+        </div>
+        <div class="radio disabled">
+          <label><input type="radio" name="question_<%=q.id %>[answer]"  value="<%=q.multiple_choice.option_e %>">  <%= q.multiple_choice.option_e %></label>
+        </div>
+        <input type="submit">
+        <%#= select_tag :location_id, options_for_select([[@location.business_name, @location.id]]), {id: "check_location_id",class: 'form-control m-time-bootstrap-select m-bootstrap-select m-bootstrap-select--pill  m_selectpicker reason-dd-1',title: @location.business_name, required: true} %>
+        <div class="m--space-10"></div>
+      </div>
+    </div>
+      <% end %>
+  </div>
+
+<% end %>
+<script>
+    $(document).ready(function () {
+        window.onload=function(){
+            // window.setTimeout("redirect()", 5000);
+            // OR
+            window.setTimeout(function() { redirect(); }, 2000);
+        };
+
+        function redirect() {
+            // $( "#check_form" ).submit();
+
+            // document.cartCheckout.submit();
+        }
+        // var minutes = 1, seconds = 59;
+        // jQuery(function(){
+        //     $("#countdown").html(minutes + ":" + seconds);
+        //     var count = setInterval(function(){ if(parseInt(minutes) < 0) { clearInterval(count); } else {jQuery("span.countdown").html(minutes + ":" + seconds); if(seconds == 0) { minutes--; if(minutes < 10) minutes = "0"+minutes; seconds = 59;} seconds--; if(seconds < 10) minutes = "0"+seconds;} }, 1000);
+        // })
+        var timer2 = "40:00";
+        var interval = setInterval(function() {
+
+
+            var timer = timer2.split(':');
+            //by parsing integer, I avoid all extra string processing
+            var minutes = parseInt(timer[0], 10);
+            var seconds = parseInt(timer[1], 10);
+            --seconds;
+            minutes = (seconds < 0) ? --minutes : minutes;
+            if (minutes < 0) clearInterval(interval);
+            seconds = (seconds < 0) ? 59 : seconds;
+            seconds = (seconds < 10) ? '0' + seconds : seconds;
+            //minutes = (minutes < 10) ?  minutes : minutes;
+            $('.countdown').html(minutes + ':' + seconds);
+
+            if(minutes==0 && seconds =='00'){
+                debugger
+                $( "#paper_form" ).submit()
+                // alert('time Up')
+
+            }
+            timer2 = minutes + ':' + seconds;
+        }, 1000);
+    })
+</script>

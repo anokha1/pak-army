@@ -1,0 +1,26 @@
+<table id="gatetable" class="table table-bordered table-striped text-align-center-app-config">
+  <thead class="datatable-thead-app-config">
+    <th>Paper Title</th>
+  <th>Number of questions</th>
+  <th>Test</th>
+
+  <!--      <th>MTD Vol</th>-->
+  </thead>
+
+  <tbody>
+  <% @papers.each do |paper| %>
+  <tr>
+    <td><%=paper.subject %></td>
+    <td><%=paper.questions.count %></td>
+    <td>
+      <%= link_to solve_paper_papers_path(id: paper.id),'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
+        Start Test
+
+      <% end %>
+
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+
+</table>
