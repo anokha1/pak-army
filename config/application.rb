@@ -15,5 +15,16 @@ module PakArmy
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.to_prepare do
+      Devise::SessionsController.layout "application"
+      Devise::RegistrationsController.layout "application"
+      Devise::ConfirmationsController.layout "application"
+      Devise::UnlocksController.layout "application"
+      Devise::PasswordsController.layout "application"
+    end
+
+    config.generators do |g|
+      g.assets false
+    end
   end
 end

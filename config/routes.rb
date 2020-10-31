@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'base#index'
   devise_for :users
+  # devise_for :users, :controllers => { registrations: 'users/registrations', sessions: 'users/sessions' , passwords: 'users/passwords', two_factor_authentication: 'users/two_factor_authentication', unlocks: 'users/unlocks',password_expired: 'users/password_expired'}
+
   devise_scope :user do
     authenticated :user do
       root 'base#index', as: :authenticated_root
@@ -11,11 +13,19 @@ Rails.application.routes.draw do
     end
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "sessions#create"
+
     resources :papers  do
       collection do
         get :questions
         get :solve_paper
         post :submit_paper
+        resources :students do
+          collection do
+            get :questions
+            get :solve_paper
+            post :submit_paper
+          end
+        end
       end
     end
   end
