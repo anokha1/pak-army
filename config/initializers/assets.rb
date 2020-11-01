@@ -11,7 +11,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( vendor/owl.carousel/assets/owl.carousel.min.css admin.css )
-Rails.application.config.assets.precompile += %w(vendores/*/*.js vendores/jquery/jquery.min.js vendores/bootstrap/js/bootstrap.bundle.min.js vendores/*/*.css v2/*/*.scss)
-Rails.application.config.assets.precompile += %w(vendor/* vendor/animate.css/* v2/owl.carousel/*.css v2/owl.carousel/*)
-Rails.application.config.assets.precompile += %w(application.css style.css css/style.css main.js)
+# Rails.application.config.assets.precompile += %w(  )
+# Rails.application.config.assets.precompile += %w()
+# Rails.application.config.assets.precompile += %w(vendor/* vendor/animate.css/* v2/owl.carousel/*.css v2/owl.carousel/*)
+Rails.application.config.assets.precompile += %w(application.css style.css main.js base.js)

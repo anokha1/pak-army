@@ -1,0 +1,10 @@
+//= require vendor/jquery/jquery.min
+//= require vendor/bootstrap/js/bootstrap.bundle.min.js
+//= require vendor/php-email-form/validate
+//= require vendor/jquery.easing/jquery.easing.min.js
+//= require vendor/jquery-sticky/jquery.sticky.js
+//= require vendor/waypoints/jquery.waypoints.min.js
+//= require vendor/counterup/counterup.min.js
+//= require vendor/isotope-layout/isotope.pkgd.min.js
+//= require vendor/owl.carousel/owl.carousel.min.js
+//= require vendor/venobox/venobox.min.js
