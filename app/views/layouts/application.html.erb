@@ -89,9 +89,9 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--start with new-->
-<% if user_signed_in? %>
+<%# if user_signed_in? %>
 <%= render 'shared/admin_header'  %>
-    <% end %>
+    <%# end %>
 <%= render :partial => 'shared/flash' %>
 
 <%= yield %>

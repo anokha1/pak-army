@@ -1,4 +1,39 @@
-<h3>Wlecome</h3>
-<form method="post"  action="/papers/students">
-<input type="text" name="email">
-</form>
+<%#= form_for(@user) do |f| %>
+<%#=f.simple_fields_for :user, User.new do |f| %>
+<%#= simple_form_for @user , url: students_path , method: :post  do |f| %>
+<style>
+  .nifty_form{
+      margin-bottom: 20%;
+  }
+</style>
+<%= form_with model: @user,url: students_path, class: "nifty_form" do |f| %>
+
+  <div class="buyrate-row">
+    <h3 id="buyrate-info-heading" class="header-color">Create Student</h3><br>
+    <div class="col-md-1"></div>
+    <div class="col-md-10" id="buyrate-user-fields-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <%= f.label :email, "Email", class: 'control-label' %>
+              <%= f.text_field :email, class: "form-control input-lg", :size => "48",  placeholder: 'Student Email' %>
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="form-group col-md-5">
+              <%= f.label :password, "Password", class: 'control-label' %>
+              <%= f.text_field :password, id: 'tx', class: "form-control input-lg", :size => "48", placeholder: 'Password' %>
+              <div id='tx-error' class="help-block with-errors"></div>
+              <div id="tx-error" class="has-error"></div>
+            </div>
+            <div class="form-group col-md-5">
+             <input type="submit" class="btn btn-primary">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>

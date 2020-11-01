@@ -1,6 +1,19 @@
+<style>
+  .countdown {
+      position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 142px;
+    width: 100%;
+    margin-left: 72%;
+    margin-top: 20px;
+    }
+</style>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
 <%= form_tag submit_paper_papers_path, method: :post, id: "paper_form", remote: true do %>
   <div class="row">
-    <span class="countdown"></span>
     <%= csrf_meta_tags %>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
@@ -34,6 +47,10 @@
   </div>
 
 <% end %>
+</div>
+  <div class="col-md-2">    <span class="countdown"></span>
+  </div>
+</div>
 <script>
     $(document).ready(function () {
         window.onload=function(){
@@ -52,7 +69,7 @@
         //     $("#countdown").html(minutes + ":" + seconds);
         //     var count = setInterval(function(){ if(parseInt(minutes) < 0) { clearInterval(count); } else {jQuery("span.countdown").html(minutes + ":" + seconds); if(seconds == 0) { minutes--; if(minutes < 10) minutes = "0"+minutes; seconds = 59;} seconds--; if(seconds < 10) minutes = "0"+seconds;} }, 1000);
         // })
-        var timer2 = "40:00";
+        var timer2 = "25:00";
         var interval = setInterval(function() {
 
 

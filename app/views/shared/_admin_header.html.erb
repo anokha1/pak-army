@@ -73,21 +73,25 @@
         <li class="active"><a href=<%= root_path %>>Home</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href=<%= new_user_session_path %>>Team</a></li>
+        <% if user_signed_in? && current_user.admin?%>
+      <li><a href=<%= new_user_session_path %>>User Sign In</a></li>
+        <li><a href=<%= papers_path %>>Test</a></li>
+        <% end %>
+
         <li class="drop-down"><a href="">Drop Down</a>
           <ul>
-            <li><a href=<%= user_session_path %>>Sign Up</a></li>
-            <li class="drop-down"><a href="#">Drop Down 2</a>
+            <% if user_signed_in? && current_user.admin?%>
+            <li><a href=<%= new_student_path %>>Create Student</a></li>
+            <% end %>
+            <li class="drop-down"><a href="#">Students</a>
               <ul>
                 <li><a href=<%= new_user_session_path %>>User Sign In</a></li>
-                <li><a href=<%= new_student_path %>>User Sign Up</a></li>
-                <li><a href=<%= new_user_session_path %>>Deep Drop Down 3</a></li>
-                <li><a href=<%= new_user_session_path %>>Deep Drop Down 4</a></li>
-                <li><a href=<%= new_user_session_path %>>Deep Drop Down 5</a></li>
+                <% if user_signed_in? && current_user.admin?%>
+                <li><a href=<%= students_path %>>Students</a></li>
+                <% end %>
               </ul>
             </li>
-            <li><a href="#">Drop Down 3</a></li>
+<!--            <li><a href=<%#= students_path %>>Students</a></li>-->
             <li><a href="#">Drop Down 4</a></li>
 <li>
             <% if current_user %>

@@ -8,9 +8,9 @@ Rails.application.routes.draw do
       root 'base#index', as: :authenticated_root
     end
 
-    unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
-    end
+    # unauthenticated do
+    #   root 'devise/sessions#new', as: :unauthenticated_root
+    # end
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "sessions#create"
 

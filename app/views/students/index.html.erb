@@ -1,0 +1,32 @@
+<style>
+  #gatetable{
+      margin-bottom: 20%;
+      margin-top: 5%;
+  }
+</style>
+<table id="gatetable" class="table table-bordered table-striped text-align-center-app-config">
+  <thead class="datatable-thead-app-config">
+  <th>Email</th>
+  <th>Student's Status</th>
+  <th>Edit</th>
+
+  <!--      <th>MTD Vol</th>-->
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%=user.email %></td>
+      <td><%=user.is_block? ? 'Active' : 'Not Active'  %></td>
+      <td>
+        <%= link_to student_path(id: user.id), method: :patch ,'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
+          Edit User
+
+        <% end %>
+
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+
+</table>
