@@ -1,4 +1,4 @@
-class Devise::SessionsController < DeviseController
+class SessionsController < DeviseController
   layout 'application'
   prepend_before_action :require_no_authentication, only: [:new, :create]
   prepend_before_action :allow_params_authentication!, only: :create
