@@ -23,6 +23,8 @@ module PakArmy
       # Devise::PasswordsController.layout "application"
     end
 
+
+
     config.generators do |g|
       g.assets false
     end
