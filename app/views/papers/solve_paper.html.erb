@@ -38,12 +38,12 @@
         <div class="radio disabled">
           <label><input type="radio" name="question_<%=q.id %>[answer]"  value="<%=q.multiple_choice.option_e %>">  <%= q.multiple_choice.option_e %></label>
         </div>
-        <input type="submit">
         <%#= select_tag :location_id, options_for_select([[@location.business_name, @location.id]]), {id: "check_location_id",class: 'form-control m-time-bootstrap-select m-bootstrap-select m-bootstrap-select--pill  m_selectpicker reason-dd-1',title: @location.business_name, required: true} %>
         <div class="m--space-10"></div>
       </div>
     </div>
       <% end %>
+    <input type="submit" class="btn btn-primary">
   </div>
 
 <% end %>

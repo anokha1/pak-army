@@ -8,7 +8,10 @@
 
         <!-- Slide 1 -->
         <div class="carousel-item active">
-          <div class="carousel-background"><img src="assets/img/slide/11.jpg" alt=""></div>
+          <div class="carousel-background">
+            <%= image_tag "/assets/img/slide/11.jpg" %>
+<!--            <img src="assets/img/slide/11.jpg" alt="">-->
+          </div>
           <div class="carousel-container">
             <div class="carousel-content">
               <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Shuffle</span></h2>
@@ -73,8 +76,9 @@
         <li class="active"><a href=<%= root_path %>>Home</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#services">Services</a></li>
-        <% if user_signed_in? && current_user.admin?%>
-      <li><a href=<%= new_user_session_path %>>User Sign In</a></li>
+        <% if user_signed_in?%>
+<!--      <li><a href=<%#= new_user_session_path %>>User Sign In</a></li>-->
+
         <li><a href=<%= papers_path %>>Test</a></li>
         <% end %>
 
