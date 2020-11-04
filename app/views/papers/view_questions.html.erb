@@ -1,0 +1,14 @@
+<div class="container">
+  <% @paper.try(:questions).each do |question| %>
+    <div class="row">
+      <p>   <span class="font-weight-bold">Question: </span><%=question.name %></p><br>
+    </div>
+    <div class="row">
+      <p>
+        <span class="font-weight-bold">Correct Option: </span>
+        <%=question.try(:multiple_choice).try(:correct_option) %>
+      </p><br>
+    </div>
+  <% end %>
+
+</div>

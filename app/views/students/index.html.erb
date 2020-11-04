@@ -9,6 +9,7 @@
   <th>Email</th>
   <th>Student's Status</th>
   <th>Edit</th>
+  <th>Total Papers</th>
 
   <!--      <th>MTD Vol</th>-->
   </thead>
@@ -20,10 +21,21 @@
       <td><%=user.is_block? ? 'Active' : 'Not Active'  %></td>
       <td>
         <%= link_to student_path(id: user.id), method: :patch ,'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
-          Edit User
+          <%=user.is_block? ? 'Block This User' : 'UnBlock this User'  %>
 
         <% end %>
 
+      </td>
+      <td>
+        <%count= UserAnswer.where(user_id:user.id).pluck(:paper_id).try(:uniq) %>
+
+        <% if count.present? %>
+        <%= link_to student_paper_students_path(id: user.id), method: :get ,'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
+            <%= count.try(:count) %>
+        <% end %>
+        <% else %>
+          <%= count.try(:count) %>
+        <% end %>
       </td>
     </tr>
   <% end %>

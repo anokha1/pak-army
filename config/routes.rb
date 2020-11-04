@@ -18,12 +18,15 @@ Rails.application.routes.draw do
       collection do
         get :questions
         get :solve_paper
+        get :view_questions
         post :submit_paper
         resources :students do
           collection do
             get :questions
             get :solve_paper
             post :submit_paper
+            get :student_paper
+            get :view_paper
           end
         end
       end

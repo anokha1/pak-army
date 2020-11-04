@@ -2,6 +2,10 @@
    .col-md-12{
        max-width: 95%;
    }
+   .form-inline{
+       margin-top: 2%;
+       margin-bottom: 20%;
+   }
  </style>
   <%#= form_for @paper, url: {controller: "papers", action: "create"} do |f| %>
     <%= nested_form_for @paper,url: {controller: "papers", action: "create"}, method: :post, html: {class: "form-inline",autocomplete:"off",id:"paper_form"} do |f| %>

@@ -5,22 +5,31 @@
       font-size: 32px;
   }
 </style>
+<% if current_user.admin? %>
 <%= link_to 'New Test' ,new_paper_path,class:'test'%>
+  <% end %>
 
 <table id="gatetable" class="table table-bordered table-striped text-align-center-app-config">
   <thead class="datatable-thead-app-config">
     <th>Paper Title</th>
   <th>Number of questions</th>
+    <% unless current_user.admin?%>
   <th>Test</th>
-
+    <% end %>
+    <% if current_user.admin?%>
+    <th>View Questions</th>
+  <% end %>
   <!--      <th>MTD Vol</th>-->
   </thead>
 
   <tbody>
   <% @papers.each do |paper| %>
+  <% paper_attempt= UserAnswer.where(user_id:current_user.id,paper_id:paper.id) %>
+    <% unless paper_attempt.present? %>
   <tr>
     <td><%=paper.subject %></td>
     <td><%=paper.questions.count %></td>
+    <% unless current_user.admin?%>
     <td>
       <%= link_to solve_paper_papers_path(id: paper.id),'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
         Start Test
@@ -28,7 +37,16 @@
       <% end %>
 
     </td>
+    <% end %>
+    <td>
+    <% if current_user.admin?%>
+      <%= link_to view_questions_papers_path(paper_id: paper.id),'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
+ View Questions
+    <% end %>
+    <% end %>
+      </td>
   </tr>
+  <% end %>
   <% end %>
   </tbody>
 

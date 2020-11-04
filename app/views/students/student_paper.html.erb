@@ -1,0 +1,39 @@
+<style>
+    #gatetable{
+        margin-bottom: 20%;
+        margin-top: 5%;
+    }
+</style>
+<table id="gatetable" class="table table-bordered table-striped text-align-center-app-config">
+  <thead class="datatable-thead-app-config">
+  <th>Subject</th>
+  <th>Total Questions</th>
+  <th>Right Answers</th>
+  <th>View Paper</th>
+
+  <!--      <th>MTD Vol</th>-->
+  </thead>
+
+  <tbody>
+  <%  if @papers.present? %>
+  <% @papers.each do |paper| %>
+    <tr>
+      <td><%=paper.subject %></td>
+      <td><%=paper.try(:questions).try(:count) %></td>
+      <% count=UserAnswer.where(user_id:params[:id],paper_id:paper.id,is_correct: true) %>
+      <td>
+        <%= count.try(:count) %>
+      </td>
+      <td>
+        <%#count= UserAnswer.where(user_id:user.id).pluck(:paper_id).try(:uniq) %>
+
+          <%= link_to view_paper_students_path(paper_id: paper.id,user_id:params[:id]), method: :get ,'data-original-title':'Detail', class: 'cutom_tootltip pull-right detail-btn' do %>
+            View Paper
+          <% end %>
+      </td>
+    </tr>
+  <% end %>
+    <% end %>
+  </tbody>
+
+</table>

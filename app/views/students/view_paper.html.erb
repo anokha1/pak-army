@@ -1,0 +1,27 @@
+<div class="container">
+  <% @paper.try(:questions).each do |question| %>
+  <div class="row">
+  <p>   <span class="font-weight-bold">Question: </span><%=question.name %></p><br>
+  </div>
+    <div class="row">
+    <p>
+      <span class="font-weight-bold">Correct Option: </span>
+      <%answer= UserAnswer.where(user_id:params[:user_id],question_id:question.id,paper_id:@paper.id).try(:first) %>
+      <%=question.try(:multiple_choice).try(:correct_option) %>
+    </p><br>
+    </div>
+    <div class="row">
+    <p>
+      <span class="font-weight-bold">Option Choosen: </span>
+      <%=answer.selected_option %>
+    </p><br>
+    </div>
+    <div class="row">
+    <p>
+      <span class="font-weight-bold">Answer </span>
+      <%=answer.is_correct? ? 'True' : 'False' %>
+    </p><br>
+  </div>
+    <% end %>
+
+</div>

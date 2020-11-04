@@ -10,12 +10,12 @@ class StudentsController < ApplicationController
   end
   def update
     @user=User.where(id:params[:id]).try(:first)
-    if @user.present?
-      @user.update(is_block:true)
-      flash[:sucess]='User Updated succesfully'
+    if @user.present? && @user.is_block?
+      @user.update(is_block:false)
+      flash[:sucess]='User Blocked succesfully'
     else
-      flash[:sucess]='User not updated'
-
+      @user.update(is_block:true) if @user.present?
+      flash[:sucess]='User is Un-Blocked'
     end
     redirect_back(fallback_location: root_path)
   end
@@ -28,6 +28,17 @@ class StudentsController < ApplicationController
       flash[:sucess]='User not saved succesfully'
     end
     redirect_to students_url
+  end
+
+  def student_paper
+    if params[:id].present?
+      count= UserAnswer.where(user_id:params[:id]).pluck(:paper_id).try(:uniq)
+      @papers=Paper.where(id:count)
+    end
+  end
+
+  def view_paper
+    @paper=Paper.where(id:params[:paper_id]).try(:first)
   end
 
   private

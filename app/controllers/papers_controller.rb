@@ -68,9 +68,13 @@ class PapersController < ApplicationController
         # @multiple_choices.save
         multiple_choices.push(@multiple_choices)
       end
-      # choices=MultipleChoice.import multiple_choices
+      choices=MultipleChoice.import multiple_choices
     end
     redirect_back(fallback_location: root_path)
+  end
+
+  def view_questions
+    @paper=Paper.where(id:params[:paper_id]).try(:first)
   end
 
   private
