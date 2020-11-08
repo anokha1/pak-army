@@ -77,6 +77,65 @@ class PapersController < ApplicationController
     @paper=Paper.where(id:params[:paper_id]).try(:first)
   end
 
+  def edit
+    @paper=Paper.where(id:params[:id]).try(:first)
+  end
+
+  def update
+    @paper=Paper.where(id:params[:paper_id]).try(:first)
+    @paper.subject=params[:paper]['subject']
+    @paper.save
+    if params[:questions].present?
+      questions=[]
+      questionss=[]
+      params[:questions].keys.each do |obj|
+        @question=Question.where(id:params[:questions]["#{obj}"]['id']).try(:first)
+        if @question.present?
+          @question.name=params[:questions]["#{obj}"]['name']
+          questions.push(@question)
+        else
+          @question=Question.new(new_question_params(params[:questions]["#{obj}"]))
+          @question.paper_id=@paper.id
+          questions.push(@question)
+        end
+        # params[:multiple_choices]["#{obj}"]['question_id']=@question.id
+      end
+      # BlockTransaction.import block_transactions, on_duplicate_key_update: {conflict_target: [:sequence_id], columns: [:updated_at, :tx_amount, :net_fee, :total_net, :privacy_fee, :fee_in_cents, :amount_in_cents]}
+      if questions.present?
+        questions=Question.import questions , on_duplicate_key_update: {conflict_target: [:id], columns: [:name]}
+      end
+    end
+    if params[:multiple_choices].present? && questions.present?
+      multiple_choices=[]
+      params[:multiple_choices].keys.each do |obj|
+        @multiple_choices=MultipleChoice.where(id:params[:multiple_choices]["#{obj}"]['id']).try(:first)
+        if @multiple_choices.present?
+          # @multiple_choices=MultipleChoice.new(new_multiple_params(params[:multiple_choices]["#{obj}"]))
+          @multiple_choices.option_a=params[:multiple_choices]["#{obj}"]['option_a']
+          @multiple_choices.option_b=params[:multiple_choices]["#{obj}"]['option_b']
+          @multiple_choices.option_c=params[:multiple_choices]["#{obj}"]['option_c']
+          @multiple_choices.option_d=params[:multiple_choices]["#{obj}"]['option_d']
+          @multiple_choices.option_e=params[:multiple_choices]["#{obj}"]['option_e']
+          @multiple_choices.correct_option=params[:multiple_choices]["#{obj}"]['correct_option']
+          multiple_choices.push(@multiple_choices)
+        else
+          @multiple_choices=MultipleChoice.new(new_multiple_params(params[:multiple_choices]["#{obj}"]))
+          @multiple_choices.question_id=questions.ids[obj.try(:to_i)]
+
+          multiple_choices.push(@multiple_choices)
+          # @multiple_choices.question_id=@paper.id
+        end
+        # @multiple_choices.save
+      end
+      # choices=MultipleChoice.import multiple_choices
+      if multiple_choices.present?
+        multiple_choices=MultipleChoice.import multiple_choices , on_duplicate_key_update: {conflict_target: [:id], columns: [:option_a,:option_b,:option_c,:option_d,:option_e,:correct_option]}
+      end
+    end
+    flash[:success]='Paper is updated'
+    redirect_back(fallback_location: root_path)
+  end
+
   private
   def new_paper_params
     params.require(:paper).permit(:subject)
