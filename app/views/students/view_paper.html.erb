@@ -13,13 +13,13 @@
     <div class="row">
     <p>
       <span class="font-weight-bold">Option Choosen: </span>
-      <%=answer.selected_option %>
+      <%=answer.try(:selected_option) || '--' %>
     </p><br>
     </div>
     <div class="row">
     <p>
       <span class="font-weight-bold">Answer </span>
-      <%=answer.is_correct? ? 'True' : 'False' %>
+      <%=answer.try(:is_correct?) ? 'True' : 'False' %>
     </p><br>
   </div>
     <% end %>
