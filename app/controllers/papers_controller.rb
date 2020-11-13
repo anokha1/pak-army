@@ -21,7 +21,6 @@ class PapersController < ApplicationController
   end
 
   def submit_paper
-    params[:paper_id]=Paper.last.id
     user=User.where(id:params[:user_id]).try(:first)
     if params[:paper_id].present?
       paper=Paper.where(id:params[:paper_id]).try(:first)
@@ -42,7 +41,10 @@ class PapersController < ApplicationController
             user_answer.save
           end
         end
-        end
+      end
+      count=UserAnswer.where(user_id:params[:user_id],paper_id:params[:paper_id],is_correct: true).try(:count)
+      flash[:successs]="Total Right Answers are #{count}"
+
     end
     redirect_to root_path
   end
@@ -84,6 +86,7 @@ class PapersController < ApplicationController
   def update
     @paper=Paper.where(id:params[:paper_id]).try(:first)
     @paper.subject=params[:paper]['subject']
+    @paper.time=params[:paper]['time']
     @paper.save
     if params[:questions].present?
       questions=[]
@@ -138,7 +141,7 @@ class PapersController < ApplicationController
 
   private
   def new_paper_params
-    params.require(:paper).permit(:subject)
+    params.require(:paper).permit(:subject,:time)
   end
   def new_question_params(obj)
     obj.permit(:name,:paper_id)
